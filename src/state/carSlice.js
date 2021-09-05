@@ -4,20 +4,27 @@ export const carSlice = createSlice({
 	name: 'car',
 	initialState: {
 		model: 'Mercedes EQC',
-		isTurnOn: false,
 		coverage: 374,
 		battery: 100,
 		airConditioningTemperature: 20,
 		isAirConditioningTurnOn: false,
 		fanSpeed: 0,
 		airConditioningProgram: 'auto',
-		isOpen: false
+		isOpen: false,
+		isTrunkOpen: false,
+
 	},
 	reducers: {
 		toggleIsOpen: (state) => {
 			state.isOpen = !state.isOpen;
-		}
+		},
+		toggleIsTrunkOpen: (state) => {
+			state.isTrunkOpen = !state.isTrunkOpen;
+		},
+		toggleIsAirConditioningTurnOn: (state) => {
+			state.isAirConditioningTurnOn = !state.isAirConditioningTurnOn;
+		},
 	}
 });
-export const { toggleIsOpen } = carSlice.actions;
+export const { toggleIsOpen, toggleIsTrunkOpen, toggleIsAirConditioningTurnOn } = carSlice.actions;
 export default carSlice.reducer;
