@@ -1,4 +1,135 @@
-*{
+@import '~boxicons';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+
+* {
   padding: 0;
   margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.main-screen {
+  background: rgb(52, 57, 63);
+  background: linear-gradient(180deg, rgba(52, 57, 63, 1) 35%, rgba(25, 26, 30, 1) 100%);
+  width: calc(100% - 3rem);
+  height: calc(100vh - 3rem);
+  padding: 1.5rem;
+
+  flex-direction: column;
+  display: flex;
+
+  &-top {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 3rem;
+
+    button {
+      color: #4D5258;
+      padding: 10px;
+      background: linear-gradient(145deg, #2a2f36, #23282d);
+      box-shadow: 8px 8px 16px #1d2125, -8px -8px 16px #31373f;
+      font-size: 1rem;
+    }
+
+  }
+
+  h3 {
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+  }
+
+  &-main {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% + 1.5rem);
+    justify-content: space-between;
+
+
+    &-coverage-box {
+      display: flex;
+      width: 100%;
+      color: white;
+      justify-content: center;
+      position: relative;
+      bottom: -5rem;
+
+      h1 {
+
+        font-weight: 200;
+        font-size: 8rem;
+
+      }
+
+      p {
+        margin-top: 2.5rem;
+
+      }
+    }
+
+    &-car-box {
+      background-size: cover;
+      background-position: 0 top;
+      background-repeat: no-repeat;
+      height: 250px;
+      z-index: 2;
+
+    }
+  }
+
+  &-bottom {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+    margin-bottom: 0;
+
+
+    &-lock-box {
+      width: 100%;
+      flex-direction: column;
+      display: flex;
+      align-items: center;
+
+      button {
+        background: #0997E1;
+        box-shadow: inset 11px 11px 22px #066799, inset -11px -11px 22px #0cc7ff, 0 0 5rem 0.2rem black;
+        border: 2px solid #0997E1 !important;
+        width: 80px;
+        height: 80px;
+        color: white;
+        font-size: 1.1rem;
+
+
+      }
+
+      p {
+        margin-top: 1rem;
+        font-size: 13px;
+        color: white !important;
+
+      }
+    }
+
+
+    p {
+      margin-bottom: 2rem;
+      color: #4B4C51;
+      font-weight: 500;
+
+
+    }
+  }
+
+  button {
+    outline: none;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
 }
