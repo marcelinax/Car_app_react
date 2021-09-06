@@ -1,13 +1,18 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleIsOpen } from '../state/carSlice';
+import { changeCoverage, toggleIsOpen } from '../state/carSlice';
 import { useHistory } from 'react-router-dom';
 
 
 const MainScreen = () => {
-	const car = useSelector(state => state.car);
+	const car = useSelector(state => state.car.car);
 	const dispatch = useDispatch();
 	const history = useHistory();
+
+	const changeCarCoverage = () => {
+		setInterval(() => dispatch(changeCoverage()), 10000);
+	};
+
 
 	return (
 		<div className={'main-screen'}>
@@ -26,7 +31,10 @@ const MainScreen = () => {
 			<div className={'main-screen-bottom'}>
 				<p>A/C is turned {car.isAirConditioningTurnOn ? 'on' : 'off'}</p>
 				<div className={'main-screen-bottom-lock-box'}>
-					<button onClick={() => dispatch(toggleIsOpen())}>{car.isOpen ? <i className="bx bx-lock-open"/> : <i className="bx bx-lock"/>}</button>
+					<button onClick={() => {
+						dispatch(toggleIsOpen());
+						changeCarCoverage();
+					}}>{car.isOpen ? <i className="bx bx-lock-open"/> : <i className="bx bx-lock"/>}</button>
 					<p>Tap to {car.isOpen ? 'close' : 'open'} the car</p></div>
 
 			</div>

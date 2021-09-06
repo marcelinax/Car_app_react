@@ -4,11 +4,10 @@ import { useHistory } from 'react-router-dom';
 import { toggleIsAirConditioningTurnOn, toggleIsOpen, toggleIsTrunkOpen } from '../state/carSlice';
 
 const Settings = () => {
-	const car = useSelector(state => state.car);
+	const car = useSelector(state => state.car.car);
 	const history = useHistory();
 	const dispatch = useDispatch();
 
-	const a = {}
 
 	return (
 		<div className={'settings'}>
@@ -76,7 +75,7 @@ const Settings = () => {
 				</div>
 				<button onClick={(e) => {
 					e.preventDefault();
-					e.stopPropagation()
+					e.stopPropagation();
 					dispatch(toggleIsAirConditioningTurnOn());
 				}}><i className="bx bx-power-off"></i></button>
 
