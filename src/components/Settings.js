@@ -1,13 +1,16 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { toggleIsAirConditioningTurnOn, toggleIsOpen, toggleIsTrunkOpen } from '../state/carSlice';
+import { chargeBattery, toggleIsAirConditioningTurnOn, toggleIsBatteryCharged, toggleIsOpen, toggleIsTrunkOpen } from '../state/carSlice';
 
 const Settings = () => {
 	const car = useSelector(state => state.car.car);
 	const history = useHistory();
 	const dispatch = useDispatch();
 
+	const chargeCarBattery = () => {
+		setInterval(() => dispatch(chargeBattery()), 1000);
+	};
 
 	return (
 		<div className={'settings'}>
@@ -27,21 +30,21 @@ const Settings = () => {
 								<i className="bx bxs-battery bx-rotate-270"/>
 								<p>Battery</p>
 							</div>
-							<p className={'value'}>{car.battery}%</p>
+							<p className={'value'}>{Math.ceil(car.battery)}%</p>
 						</div>
 						<div className={'settings-main-status-box-item'}>
 							<div className={'settings-main-status-box-item-category'}>
 								<i className="bx bxs-navigation"></i>
 								<p>Range</p>
 							</div>
-							<p className={'value'}>{car.coverage} km</p>
+							<p className={'value'}>{Math.ceil(car.coverage)} km</p>
 						</div>
 						<div className={'settings-main-status-box-item'}>
 							<div className={'settings-main-status-box-item-category'}>
 								<i className="bx bxs-thermometer"></i>
 								<p>Temperature</p>
 							</div>
-							<p className={'value'}>{car.airConditioningTemperature} °C</p>
+							<p className={'value'}>{Math.round(car.airConditioningTemperature)} °C</p>
 						</div>
 					</div>
 				</div>
@@ -52,6 +55,14 @@ const Settings = () => {
 								 onClick={() => dispatch(toggleIsOpen())}>
 							<p className={'settings-main-information-box-item-category'}>Engine</p>
 							<p>{car.isOpen ? 'Active mode' : 'Sleeping mode'}</p>
+						</div>
+						<div className={car.isBatteryCharged ? 'settings-main-information-box-item-turn-on' : 'settings-main-information-box-item'}
+								 onClick={() => {
+									 dispatch(toggleIsBatteryCharged());
+									 chargeCarBattery();
+								 }}>
+							<p className={'settings-main-information-box-item-category'}>Battery</p>
+							<p>{car.isBatteryCharged ? 'Battery is charging' : 'Battery charging disabled'}</p>
 						</div>
 						<div className={car.isAirConditioningTurnOn ? 'settings-main-information-box-item-turn-on' : 'settings-main-information-box-item'}
 								 onClick={() => dispatch(toggleIsAirConditioningTurnOn())}>

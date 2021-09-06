@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeCoverage, toggleIsOpen } from '../state/carSlice';
+import { changeCoverage, decreaseBattery, toggleIsOpen } from '../state/carSlice';
 import { useHistory } from 'react-router-dom';
 
 
@@ -10,7 +10,10 @@ const MainScreen = () => {
 	const history = useHistory();
 
 	const changeCarCoverage = () => {
-		setInterval(() => dispatch(changeCoverage()), 10000);
+		setInterval(() => {
+			dispatch(changeCoverage());
+			dispatch(decreaseBattery());
+		}, 1000);
 	};
 
 
@@ -23,7 +26,7 @@ const MainScreen = () => {
 			<h3>{car.model}</h3>
 			<div className={'main-screen-main'}>
 				<div className={'main-screen-main-coverage-box'}>
-					<h1>{car.coverage}</h1>
+					<h1>{Math.ceil(car.coverage)}</h1>
 					<p>km</p>
 				</div>
 				<div className={'main-screen-main-car-box'} style={{ backgroundImage: `url(${car.isOpen ? `/media/car-turn-on.png` : `/media/car-turn-off.png`})` }}/>
@@ -34,6 +37,7 @@ const MainScreen = () => {
 					<button onClick={() => {
 						dispatch(toggleIsOpen());
 						changeCarCoverage();
+
 					}}>{car.isOpen ? <i className="bx bx-lock-open"/> : <i className="bx bx-lock"/>}</button>
 					<p>Tap to {car.isOpen ? 'close' : 'open'} the car</p></div>
 

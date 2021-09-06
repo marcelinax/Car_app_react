@@ -1,11 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { setAirConditioningProgram, setFanSpeed, toggleIsAirConditioningTurnOn } from '../state/carSlice';
+import { setAcTemperature, setAirConditioningProgram, setFanSpeed, toggleIsAirConditioningTurnOn } from '../state/carSlice';
+import 'rc-slider/assets/index.css';
+import Slider from 'rc-slider';
+import { CircularInput, CircularProgress, CircularThumb, CircularTrack } from 'react-circular-input';
 
 const SettingsAc = () => {
 	const car = useSelector(state => state.car.car);
-
 	const history = useHistory();
 	const dispatch = useDispatch();
 
@@ -21,14 +23,21 @@ const SettingsAc = () => {
 				<div className={'settings-ac-main-top'}>
 					<div className={'settings-ac-bottom-information-box'}>
 						<p>A/C is {car.airConditioningTemperature ? 'ON' : 'OFF'}</p>
-						<p>Currently {car.airConditioningTemperature} °C</p>
+						<p>Currently {Math.round(car.airConditioningTemperature)} °C</p>
 					</div>
 					<button onClick={() => {
 						dispatch(toggleIsAirConditioningTurnOn());
 					}}><i className="bx bx-power-off"></i></button>
 				</div>
 				<div className={'settings-ac-main-temperature-box'}>
+					<div className={'p-bg'}><p>{Math.round(car.airConditioningTemperature)} °C</p></div>
 
+					<CircularInput onChange={(value) => dispatch(setAcTemperature({ temperature: value * 10 + 18 }))}
+												 value={(car.airConditioningTemperature - 18) / 10}>
+						<CircularTrack/>
+						<CircularProgress/>
+						<CircularThumb/>
+					</CircularInput>
 				</div>
 				<div className={'settings-ac-main-fan-speed-box'}>
 					<p>Fan speed</p>
@@ -40,8 +49,8 @@ const SettingsAc = () => {
 							<p>4</p>
 							<p>5</p>
 						</div>
-
-						<input type={'range'} min={'1'} max={'5'} onChange={(e) => dispatch(setFanSpeed({ fanSpeed: +e.target.value }))} value={car.fanSpeed} step={1}/>
+						<Slider min={1} max={5} onChange={(value) => dispatch(setFanSpeed({ fanSpeed: +value }))} value={car.fanSpeed} step={1}/>
+						{/*<input type={'range'} min={'1'} max={'5'} onChange={(e) => dispatch(setFanSpeed({ fanSpeed: +e.target.value }))} value={car.fanSpeed} step={1}/>*/}
 
 					</div>
 				</div>
